@@ -1,10 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Psi-Operations</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psi-Operations Database</title>
+    
+    <style>
+        /* 1. LOAD THE CUSTOM FONT */
+        @font-face {
+            font-family: "MyWebsiteFont";          
+            src: url("intodotmatrix.ttf") format("truetype"); 
+        }
+
+        /* 2. Global Page Styles */
+        body {
+            background-color: #000000; 
+            color: #ffffff;            
+            font-family: "Times New Roman", Times, serif; 
+            margin: 0;
+            padding: 20px;
+            text-align: center;        
+        }
+
+        /* 3. Header Specific Styles */
+                /* 3. Header Specific Styles (Now using your dot-matrix font!) */
+        h1, h2, h3, h4 {
+            font-family: "MyWebsiteFont", "Times New Roman", serif; 
+            font-weight: normal;       
+            letter-spacing: 1px;       
+            color: #ffffff;         
+            margin-top: 0;             
+            text-align: center !important;
+            
+            /* 💡 ADJUST THESE VALUES TO TWEAK FONT SIZES */
+            font-size: 24px;   /* Forces h1, h2, h3 to be a specific, uniform height */
+        }
+
+                /* 3.5 Center Paragraph Text Specifically on Genesis Page */
+        #genesis p {
+            text-align: center;
+        }
+
+
+
+        /* 4. Logo Layout */
+        .logo-container {
+            margin: 20px auto;
+        }
+        
+        .logo-image {
+            width: 120px;              
+            height: auto;              
+            border-radius: 8px;        
+        }
+
+        /* 5. Navigation Bar Styles */
+        nav {
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            color: #4da6ff;            
+            text-decoration: none;     
+            margin: 0 15px;            
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline; 
+        }
+
+        /* 6. Structural Elements */
+        hr {
+            border: 0;
+            border-top: 1px solid #222222; 
+            margin: 40px auto;
+            width: 80%;
+        }
+
+        .content-box {
+            text-align: left;
+            max-width: 600px;          
+            margin: 0 auto 30px auto;  
+            background-color: #000000; 
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #222222; 
+        }
+    </style>
 </head>
 <body>
-    <h1>Work in progress. Please await further updates.</h1>
-    <p>Revisions coming soon.</p>
+
+        <!-- 1. LOGO IMAGE (Top Centre - Clickable Link to Home) -->
+    <div class="logo-container">
+        <a href="index.html">
+            <img src="logo.png" alt="Psi-Operations Logo" class="logo-image">
+        </a>
+    </div>
+
+
+    <!-- 2. DATABASE NAVIGATION (💡 Links updated to point to separate pages) -->
+    <nav>
+        <a href="index.html">Genesis</a>
+        <a href="ambitions.html">Ambitions</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <hr>
+
+    <!-- 3. GENESIS SECTION (Only this remains on the home page) -->
+    <header id="genesis" class="content-box">
+        <h1>Genesis</h1>
+        <p>This is a work in progress. Please await further updates.</p>
+    </header>
+
+    <!-- FOOTER COPYRIGHT -->
+    <p style="text-align: center; margin-top: 40px; font-size: 0.8em; color: #555555;">
+        &copy; MMXXVI Psi-Operations. All rights reserved.
+    </p>
+
 </body>
 </html>
