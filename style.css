@@ -1,0 +1,92 @@
+/* ==========================================
+   PSI-OPERATIONS MASTER STYLESHEET
+   ========================================== */
+
+/* 1. LOAD THE CUSTOM FONT */
+@font-face {
+    font-family: "MyWebsiteFont";          
+    src: url("intodotmatrix.ttf") format("truetype"); 
+}
+
+/* 2. Global Page Styles */
+body {
+    background-color: #000000; 
+    color: #ffffff;            
+    font-family: "Times New Roman", Times, serif; 
+    margin: 0;
+    padding: 20px;
+    text-align: center;        
+}
+
+/* 3. Header Specific Styles (Unified dot-matrix font) */
+h1, h2, h3, h4 {
+    font-family: "MyWebsiteFont", "Times New Roman", serif; 
+    font-weight: normal;       
+    letter-spacing: 1px;       
+    color: #ffffff;         
+    margin-top: 0;             
+    text-align: center !important;
+    font-size: 24px;   
+    line-height: 1.4; /* Prevents text line collisions on mobile */
+}
+
+/* 3.5 Center Paragraph Text Specifically on Genesis Page */
+#about p {
+    text-align: center;
+}
+
+/* 4. Unified Logo Layout */
+.logo-container {
+    display: flex;                  
+    justify-content: center;        
+    margin: 20px auto;
+}
+
+.logo-image {
+    width: 120px;              
+    height: auto;              
+    border-radius: 8px;        
+}
+
+/* 5. Navigation Bar Flexbox Styles (The Symmetry & Mobile Fix) */
+nav {
+    display: flex;                  
+    justify-content: center;        
+    gap: 40px;                      
+    margin-bottom: 20px;
+    padding: 10px;
+    line-height: 2.2;
+    width: 100%;                    /* Ensures the flex boundary spans perfectly full-width */
+}
+
+nav a {
+    font-family: "MyWebsiteFont", sans-serif;
+    color: #4da6ff;            
+    text-decoration: none;     
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+    margin: 0;                      /* Strips out the old ghost margins */
+}
+
+nav a:hover {
+    text-decoration: underline; 
+}
+
+
+/* 6. Structural Elements */
+hr {
+    border: 0;
+    border-top: 1px solid #222222; 
+    margin: 40px auto;
+    width: 80%;
+}
+
+.content-box {
+    text-align: left;
+    max-width: 600px;          
+    margin: 0 auto 30px auto;  
+    background-color: #000000; 
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #222222; 
+}
