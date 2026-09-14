@@ -69,8 +69,11 @@ nav a {
 }
 
 nav a:hover {
-    text-decoration: underline; 
+    color: #ffffff; /* Turns white when hovered */
+    text-shadow: 0 0 8px #4da6ff, 0 0 15px #4da6ff; /* Creates a glowing light effect */
+    transition: 0.3s ease; /* Makes the glow fade in smoothly instead of snapping */
 }
+
 
 
 /* 6. Structural Elements */
@@ -90,3 +93,55 @@ hr {
     border-radius: 8px;
     border: 1px solid #222222; 
 }
+
+/* Animate the main page wrappers on load instead of individual boxes */
+.content-box-wrapper, #about, footer {
+    animation: fadeIn 1.2s ease-out;
+}
+
+/* This targets your smaller inner boxes on the Ambitions page */
+.content-box-wrapper .content-box {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Style the scrollbar container */
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: #000000;
+}
+
+/* Style the moving handle of the scrollbar */
+::-webkit-scrollbar-thumb {
+    background-color: #222222;
+    border-radius: 5px;
+    border: 1px solid #4da6ff; /* Gives the scrollbar a thin blue outline! */
+}
+
+/* Make the handle glow slightly when you hover over it */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #4da6ff;
+}
+
+/* TEMPORARY: Delete this after testing the scrollbar */
+body {
+    height: 2000px; 
+}
+
+
+
+
