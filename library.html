@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Library of Psi V1 — an offline deterministic archive of every permitted page.">
+    <title>Psi-Operations - Library of Psi</title>
+
+    <!-- Links your unified website aesthetics -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Bridge-styles specific to the library components to match your site */
+        :root {
+            --blue: #4da6ff;
+            --blue-dark: #222222;
+            --blue-pale: #badfff;
+            --white: #ffffff;
+            --paper: #000000;
+            --line: #222222;
+        }
+
+        .library-wrapper {
+            animation: fadeIn 1.2s ease-out;
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        /* Library Control Menu styling */
+        .menu {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px auto 25px;
+            width: max-content;
+            max-width: 100%;
+        }
+
+        .menu button {
+            background: #000000;
+            color: var(--blue);
+            font-family: "MyWebsiteFont", monospace;
+            padding: 9px 16px;
+            cursor: pointer;
+            border: 1px solid var(--blue);
+            border-radius: 4px;
+            transition: 0.2s ease;
+        }
+
+        .menu button:hover,
+        .menu button:focus-visible {
+            color: #000000;
+            background: var(--blue);
+            box-shadow: 0 0 10px var(--blue);
+        }
+
+        .intro {
+            text-align: center;
+            color: #555555;
+            font-size: .85rem;
+            margin: 0 auto 20px;
+        }
+
+        /* Container Blocks matching your .content-box theme */
+        .locator,
+        .reader,
+        .search {
+            width: 100%;
+            margin: 0 auto 30px;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .locator-title,
+        .reader-top {
+            text-align: center;
+            border-bottom: 1px solid var(--line);
+            padding: 12px 14px;
+            color: var(--white);
+            font-family: "MyWebsiteFont", serif;
+            font-size: 1.1rem;
+            letter-spacing: .08em;
+        }
+
+        .locator-inner {
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            color: #aaaaaa;
+            font-size: .85rem;
+            margin-bottom: 15px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            border: 1px solid var(--line);
+            background: #0d0d0d;
+            color: #ffffff;
+            font-family: monospace;
+            margin-top: 5px;
+            padding: 8px 12px;
+            outline: none;
+            border-radius: 4px;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 8px rgba(77, 166, 255, 0.3);
+        }
+
+        #fullLocation,
+        #hexagon {
+            font-family: monospace;
+            font-size: .85rem;
+        }
+
+        /* Completely isolates the copyright text with an un-clippable vertical cushion */
+        .site-footer {
+            display: block;
+            clear: both;
+            margin-top: 100px !important;
+            /* Pushes the copyright down far below any text panels */
+            padding-bottom: 50px !important;
+            /* Forces a guaranteed blank zone below the text at the window edge */
+        }
+
+
+        .paste-row {
+            display: grid;
+            grid-template-columns: 70% 30%;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .paste-row button,
+        .actions button {
+            background: #000000;
+            color: var(--blue);
+            border: 1px solid var(--blue);
+            padding: 8px 16px;
+            font-family: "MyWebsiteFont", sans-serif;
+            cursor: pointer;
+            border-radius: 4px;
+            white-space: nowrap;
+            transition: 0.2s ease;
+        }
+
+        .paste-row button:hover,
+        .actions button:hover {
+            background: var(--blue);
+            color: #000000;
+            box-shadow: 0 0 10px var(--blue);
+        }
+
+        .coordinates {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 15px;
+        }
+
+        .field-note {
+            float: right;
+            color: #555555;
+            font-size: .75rem;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        #status {
+            min-height: 1.35em;
+            margin: 14px 0 0;
+            text-align: center;
+            color: var(--white);
+        }
+
+        /* Reader Area Layout */
+        .reader {
+            border: 1px solid var(--line);
+        }
+
+        .reader-top h2 {
+            margin: 0;
+            color: var(--blue);
+            font-size: 1rem;
+        }
+
+        .page-wrap {
+            padding: 30px;
+            min-height: 400px;
+            background: #000000;
+        }
+
+        #page {
+            margin: 0;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            font-size: 1rem;
+            line-height: 1.65;
+            color: #ffffff;
+            /* font-family: Georgia, "Times New Roman", serif; */
+            font-family: "Times New Roman", Times, serif;
+            /* New Unified Font */
+        }
+
+        .search {
+            padding: 20px;
+        }
+
+        .search h2 {
+            font-family: "MyWebsiteFont", sans-serif;
+            font-size: 1.2rem;
+            color: var(--white);
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .search p {
+            color: #aaaaaa;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .about {
+            color: #888888;
+            border-top: 1px solid var(--line);
+            padding-top: 20px;
+            font-size: .9rem;
+            line-height: 1.6;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        summary {
+            color: var(--blue);
+            cursor: pointer;
+            font-family: "MyWebsiteFont", sans-serif;
+        }
+
+        code {
+            color: #ffffff;
+            background: #111111;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        @media (max-width: 640px) {
+            .menu {
+                width: 100%;
+            }
+
+            .menu button {
+                flex: 1 1 45%;
+            }
+
+            .paste-row {
+                grid-template-columns: 1fr;
+            }
+
+            .coordinates {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Clickable Logo -->
+    <div class="logo-container">
+        <a href="index.html">
+            <img src="assets/logo.png" alt="Psi-Operations Logo" class="logo-image">
+        </a>
+    </div>
+
+    <!-- Unified Website Navigation Bar -->
+    <nav>
+        <a href="index.html">About</a>
+        <a href="ambitions.html">Ambitions</a>
+        <a href="library.html">Library</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <hr>
+
+    <!-- Library Subsystem Container -->
+    <div class="library-wrapper">
+
+        <nav class="menu" aria-label="Archive controls">
+            <button id="openBtn">Open location</button>
+            <button id="copyBtn">Copy location</button>
+            <button id="previousBtn">Previous page</button>
+            <button id="nextBtn">Next page</button>
+            <button id="toggleSearch">Search</button>
+        </nav>
+
+
+        <section class="locator" aria-label="Library location">
+            <div class="locator-title">Library of Psi</div>
+            <div class="locator-inner">
+                <div class="paste-row">
+                    <label>Paste a complete location <span
+                            class="field-note">psi-v1:hexagon.wall.shelf.volume.page</span>
+                        <input id="fullLocation" autocomplete="off" spellcheck="false"
+                            placeholder="Paste a copied Library of Psi location here">
+                    </label>
+                    <button id="pasteOpenBtn">Open pasted location</button>
+                </div>
+                <div class="coordinates">
+                    <label>Wall<input id="wall" inputmode="numeric" value="1"></label>
+                    <label>Shelf<input id="shelf" inputmode="numeric" value="1"></label>
+                    <label>Volume<input id="volume" inputmode="numeric" value="1"></label>
+                    <label>Page<input id="pageNo" inputmode="numeric" value="1"></label>
+                </div>
+                <div class="hex-row">
+                    <label>Hexagon <span class="field-note">base-36 canonical identifier</span>
+                        <input id="hexagon" autocomplete="off" spellcheck="false" placeholder="0">
+                    </label>
+                </div>
+                <div class="actions">
+                    <button id="defaultBtn">Return to first location</button>
+                </div>
+                <div id="status" aria-live="polite"></div>
+            </div>
+        </section>
+
+        <article class="reader" aria-label="Page reader">
+            <div class="reader-top">
+                <div>
+                    <h2 id="bookhead">The first page</h2>
+                    <p id="shortLocation" style="margin:4px 0 0; color:#555555; font-family:monospace;">psi-v1:0.1.1.1.1
+                    </p>
+                </div>
+            </div>
+            <div class="page-wrap">
+                <pre id="page" aria-live="polite">Loading encryption matrix...</pre>
+            </div>
+        </article>
+
+        <section class="search" id="searchPanel" hidden>
+            <h2>Search the library</h2>
+            <p>Enter up to 3,200 permitted characters: lowercase letters, spaces, commas, and periods. This does not
+                query stored books; it calculates the unique page beginning with your text and opens its permanent
+                location.</p>
+            <textarea id="query" spellcheck="false" placeholder="write a permitted phrase here"></textarea>
+            <div class="actions"><button id="placeBtn">Find its location</button></div>
+        </section>
+
+        <details class="about">
+            <summary>About Library of Psi V1</summary>
+            <p>Every page has exactly <code>3200</code> characters from <code>abcdefghijklmnopqrstuvwxyz ,.</code>. The
+                page is interpreted as a base-29 number and divided into the hexagon, wall, shelf, volume, and page
+                coordinates above. The calculation is reversible: the complete location always opens the same page,
+                after closing this file or sharing it with someone who uses this exact V1 archive.</p>
+            <p>The hexagon identifier is necessarily long for a complete archive. The reader header displays an
+                abbreviated version so it remains inside its frame; the full identifier is preserved in the Hexagon
+                field and in copied locations. Do not change the V1 alphabet, page length, coordinate ranges, or
+                calculation if old locations must continue to work.</p>
+        </details>
+
+    </div> <!-- Closes the .library-wrapper container -->
+
+    <p class="site-footer" style="text-align: center; margin-top: 40px; font-size: 0.8em; color: #555555;">
+        &copy; MMXXVI Psi-Operations. All rights reserved.
+    </p>
+
+    <script>
+        (() => {
+            'use strict';
+            // LIBRARY OF PSI V1 SPECIFICATION. Changing these constants creates a different archive.
+            const ALPHABET = 'abcdefghijklmnopqrstuvwxyz ,.';
+            const BASE = 29n, PAGE_LENGTH = 3200;
+            const WALLS = 4n, SHELVES = 5n, VOLUMES = 32n, PAGES = 410n;
+            const $ = id => document.getElementById(id);
+            const hexagon = $('hexagon'), wall = $('wall'), shelf = $('shelf'), volume = $('volume'), pageNo = $('pageNo');
+            const pageOut = $('page'), bookhead = $('bookhead'), shortLocation = $('shortLocation'), fullLocation = $('fullLocation');
+            let current = 0n;
+
+            function setStatus(message) { $('status').textContent = message; }
+            function encodeBase36(n) { return n.toString(36); }
+            function decodeBase36(s) {
+                s = s.trim().toLowerCase();
+                if (!/^[0-9a-z]+$/.test(s)) throw new Error('The hexagon identifier must use base-36 digits: 0–9 and a–z.');
+                let n = 0n;
+                for (const char of s) n = n * 36n + BigInt(parseInt(char, 36));
+                return n;
+            }
+            function pageToNumber(text) { let n = 0n; for (const char of text) n = n * BASE + BigInt(ALPHABET.indexOf(char)); return n; }
+            function numberToPage(n) {
+                const chars = new Array(PAGE_LENGTH);
+                for (let i = PAGE_LENGTH - 1; i >= 0; i--) { chars[i] = ALPHABET[Number(n % BASE)]; n /= BASE; }
+                return chars.join('');
+            }
+            function positiveInt(element, maximum, name) {
+                const n = Number(element.value);
+                if (!Number.isInteger(n) || n < 1 || n > maximum) throw new Error(`${name} must be a whole number from 1 to ${maximum}.`);
+                return BigInt(n - 1);
+            }
+            function fieldsToNumber() {
+                const h = decodeBase36(hexagon.value || '0');
+                const w = positiveInt(wall, 4, 'Wall'), s = positiveInt(shelf, 5, 'Shelf');
+                const v = positiveInt(volume, 32, 'Volume'), p = positiveInt(pageNo, 410, 'Page');
+                return (((((h * WALLS) + w) * SHELVES + s) * VOLUMES + v) * PAGES + p);
+            }
+            function numberToFields(n) {
+                const p = n % PAGES; n /= PAGES; const v = n % VOLUMES; n /= VOLUMES;
+                const s = n % SHELVES; n /= SHELVES; const w = n % WALLS; n /= WALLS;
+                hexagon.value = encodeBase36(n); wall.value = String(w + 1n); shelf.value = String(s + 1n);
+                volume.value = String(v + 1n); pageNo.value = String(p + 1n);
+            }
+            function canonicalLocation() { return `psi-v1:${[hexagon.value || '0', wall.value, shelf.value, volume.value, pageNo.value].join('.')}`; }
+            function abbreviated(text) { return text.length <= 54 ? text : `${text.slice(0, 25)}…${text.slice(-25)}`; }
+            function updateHash() { history.replaceState(null, '', '#' + encodeURIComponent(canonicalLocation())); }
+            function render(n, announcement) {
+                if (n < 0n) throw new Error('There is no page before the first location.');
+                current = n; numberToFields(n);
+                const loc = canonicalLocation();
+                fullLocation.value = loc;
+                bookhead.textContent = `Hexagon ${abbreviated(hexagon.value)} · Wall ${wall.value} · Shelf ${shelf.value} · Volume ${volume.value} · Page ${pageNo.value}`;
+                shortLocation.textContent = abbreviated(loc);
+                shortLocation.title = loc;
+                pageOut.textContent = numberToPage(n);
+                updateHash(); setStatus(announcement || 'Location opened. This page was calculated locally.');
+            }
+            function openFields() { render(fieldsToNumber()); }
+            function parseLocation(value) {
+                value = value.trim();
+                if (value.startsWith('#')) value = decodeURIComponent(value.slice(1));
+                if (/^psi-v1:/i.test(value)) value = value.slice(7);
+                const parts = value.split('.');
+                if (parts.length !== 5) throw new Error('Paste a complete location in the form psi-v1:hexagon.wall.shelf.volume.page.');
+                const [h, w, s, v, p] = parts;
+                hexagon.value = h; wall.value = w; shelf.value = s; volume.value = v; pageNo.value = p;
+            }
+            function openPasted() { parseLocation(fullLocation.value); openFields(); }
+            function loadHash() {
+                if (!location.hash) return render(0n, 'The first location is open.');
+                parseLocation(location.hash); openFields();
+            }
+            $('openBtn').addEventListener('click', () => { try { openFields(); } catch (e) { setStatus(e.message); } });
+            $('pasteOpenBtn').addEventListener('click', () => { try { openPasted(); } catch (e) { setStatus(e.message); } });
+            fullLocation.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); try { openPasted(); } catch (err) { setStatus(err.message); } } });
+            $('previousBtn').addEventListener('click', () => { try { render(current - 1n); } catch (e) { setStatus(e.message); } });
+            $('nextBtn').addEventListener('click', () => render(current + 1n));
+            $('defaultBtn').addEventListener('click', () => render(0n, 'Returned to the first location.'));
+            $('toggleSearch').addEventListener('click', () => { const panel = $('searchPanel'); panel.hidden = !panel.hidden; if (!panel.hidden) $('query').focus(); });
+            $('placeBtn').addEventListener('click', () => {
+                try {
+                    const phrase = $('query').value;
+                    if (phrase.length > PAGE_LENGTH) throw new Error('Text must be 3,200 characters or fewer.');
+                    for (const char of phrase) if (!ALPHABET.includes(char)) throw new Error(`Unsupported character: “${char}”. Use lowercase letters, spaces, commas, and periods only.`);
+                    render(pageToNumber(phrase + ' '.repeat(PAGE_LENGTH - phrase.length)), 'Text placed at this permanent location.');
+                } catch (e) { setStatus(e.message); }
+            });
+            $('copyBtn').addEventListener('click', async () => {
+                const loc = canonicalLocation(); fullLocation.value = loc;
+                try { await navigator.clipboard.writeText(loc); setStatus('Complete Library of Psi V1 location copied.'); }
+                catch (_) { fullLocation.focus(); fullLocation.select(); setStatus('Clipboard access was blocked. The complete location is selected; copy it manually.'); }
+            });
+            window.addEventListener('hashchange', () => { try { loadHash(); } catch (e) { setStatus(e.message); } });
+            try { loadHash(); } catch (e) { render(0n, e.message); }
+        })();
+    </script>
+</body>
+
+</html>

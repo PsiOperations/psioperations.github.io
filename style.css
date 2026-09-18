@@ -5,7 +5,7 @@
 /* 1. LOAD THE CUSTOM FONT */
 @font-face {
     font-family: "MyWebsiteFont";          
-    src: url("intodotmatrix.ttf") format("truetype"); 
+    src: url("assets/intodotmatrix.ttf") format("truetype"); 
 }
 
 /* 2. Global Page Styles */
@@ -14,7 +14,7 @@ body {
     color: #ffffff;            
     font-family: "Times New Roman", Times, serif; 
     margin: 0;
-    padding: 20px;
+    padding: 20px 20px 60px 20px;
     text-align: center;        
 }
 
@@ -142,6 +142,46 @@ body {
     height: 2000px; 
 }
 
+/* Custom styling for Library Inputs & Buttons */
+.content-box-wrapper input[type="text"], 
+.content-box-wrapper textarea {
+    background-color: #0d0d0d;
+    border: 1px solid #222222;
+    color: #ffffff;
+    padding: 8px;
+    font-family: monospace;
+    border-radius: 4px;
+    margin: 5px;
+}
 
+.content-box-wrapper input:focus, 
+.content-box-wrapper textarea:focus {
+    border-color: #4da6ff;
+    outline: none;
+    box-shadow: 0 0 8px rgba(77, 166, 255, 0.3);
+}
+
+.content-box-wrapper button {
+    background-color: #000000;
+    border: 1px solid #4da6ff;
+    color: #4da6ff;
+    padding: 8px 16px;
+    font-family: "MyWebsiteFont", sans-serif;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.2s ease;
+}
+
+.content-box-wrapper button:hover {
+    background-color: #4da6ff;
+    color: #000000;
+    box-shadow: 0 0 10px #4da6ff;
+}
+
+/* Ensure the footer always maintains a clean gap below the layout container */
+.library-wrapper + p, main + p {
+    margin-top: 80px !important; /* Forces a massive, un-clippable buffer gap below your page blocks */
+    margin-bottom: 40px;         /* Adds a safety cushion beneath the copyright line itself */
+}
 
 
