@@ -65,6 +65,7 @@ nav a {
     text-decoration: none;     
     text-transform: uppercase; 
     letter-spacing: 1px;
+    line-height: 1.4;
     margin: 0;                      /* Strips out the old ghost margins */
 }
 
@@ -184,4 +185,18 @@ body {
     margin-bottom: 40px;         /* Adds a safety cushion beneath the copyright line itself */
 }
 
+/* Responsive Mobile Core Overrides */
+@media (max-width: 600px) {
+    /* Tighten the navigation bar gap so everything fits on a phone screen */
+    nav {
+        gap: 15px !important; /* Reduces the side margins between links */
+        padding: 5px 0;
+    }
+
+    nav a {
+        width: auto !important;       /* Lets the link boxes shrink dynamically */
+        font-size: 0.9em;             /* Scales text down slightly so it never clips */
+        padding: 5px 10px;            /* Adds a comfortable finger-tap area */
+    }
+}
 
